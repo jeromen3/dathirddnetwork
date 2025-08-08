@@ -1,13 +1,18 @@
 "use client";
-import AuthForm from "@/components/AuthForm";
-import { useSearchParams } from "next/navigation";
 
-export default function AuthPage() {
-  const searchParams = useSearchParams();
-  const reason = searchParams.get("reason");
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import AuthForm from "@/components/AuthForm";
+
+// Optional: prevents static prerender quirks on this page
+export const dynamic = "force-dynamic";
+
+function AuthContent() {
+  const sp = useSearchParams();
+  const reason = sp.get("reason");
 
   return (
-    <main className="container mx-auto max-w-md py-12 space-y-6">
+    <div className="space-y-6">
       {reason === "required" && (
         <div className="rounded-md border p-3 text-sm">
           Please sign in to access your dashboard.
@@ -22,6 +27,16 @@ export default function AuthPage() {
       </section>
 
       <AuthForm />
+    </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <main className="container mx-auto max-w-md py-12">
+      <Suspense fallback={<div className="text-sm text-muted-foreground">Loading…</div>}>
+        <AuthContent />
+      </Suspense>
     </main>
   );
 }

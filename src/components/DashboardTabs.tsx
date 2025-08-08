@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { Check, Play, Square, Zap, PlugZap, BarChart } from "lucide-react";
+import { Check, Square, Zap, PlugZap, BarChart } from "lucide-react";
 import {
   LineChart,
   Line,
